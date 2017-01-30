@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "github.com/patrickmn/go-cache": {
+            "branch": "master"
+        }
+    }
+}

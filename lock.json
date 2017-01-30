@@ -1,0 +1,13 @@
+{
+    "memo": "1fffd03ec18265aaed146cebff3f1b26cd5aa0cb456ab78db01867eb47499675",
+    "projects": [
+        {
+            "name": "github.com/patrickmn/go-cache",
+            "branch": "master",
+            "revision": "e7a9def80f35fe1b170b7b8b68871d59dea117e1",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}
