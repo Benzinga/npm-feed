@@ -1,0 +1,19 @@
+language: go
+go:
+- 1.7
+install:
+- echo "Using vendored packages."
+script:
+- make cross
+deploy:
+  provider: releases
+  api_key:
+    secure: nS9SSDC2SRYknbs0vDQ6yhMG3MXAvigJKr04wN9yGTJpbnkucggjc5EZlxCqv86KyrcSSTKed5165QNdNiPM+ik0/V4mmfhTpf5uy+AaZIQjIkjY7MlUdF6VlkIMZwMUH6q3SLYMamulODJT4XIL6pIbpkZ2kQx/eMtAbLe81fpYItlEermx/SxXPViYrbkBVR+WrceZ0F+KGkcbABDKeohLcMc/KOkcP8KKlrGNqLWfmDPfTk3nrlk4W8qe4Nn+8AI2hr7/frSZk7xL0qNVcJWs8Fmq1kvQb764UYgqMirztdRKGXpw2xy46wowIfFOgNeiX5joP0Y78AdUganSGTu2iu+Rotdz4luc0ZtBVmGtf8yo7/I2DvmRMOwgPK1rath/Mf52wADFr8CSJgU1iGMF9/EF4uiKCZSIJaw8NCwu0yMmfsRTC3Go6VwgZ6/gwmsn7VChUYhjxou1iF83Dley/y2Awq5m/47U7yftFKWEzK0qPqWdGUxcZ32+y9uIbCc7ylY2BOHbh63cqVhTCY2/uyrZTOWKDwv9ZINrHVJq/N7V/y1vzI4UdVdxatz+Lh990V/Moh1KwprMOiWHZXnUHrV8az9V9Ve9UYbhcMHwrCZFAzWAYy5ZUhG0xeN9gTVw4Ztww1cRzi/b9+m3Yi7woz+NorwDcRw6e0aP3eA=
+  file:
+  - npmfeed-windows.zip
+  - npmfeed-darwin.tar.gz
+  - npmfeed-freebsd.tar.gz
+  - npmfeed-linux.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
