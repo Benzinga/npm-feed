@@ -4,7 +4,7 @@ go:
 install:
 - echo "Using vendored packages."
 script:
-- make cross
+- make cross -j4
 deploy:
   provider: releases
   api_key:
