@@ -47,7 +47,7 @@ var (
 
 func init() {
 	eStringVar(&listenAddr, "listen", "Address to listen on.")
-	eStringVar(&listenAddr, "github-token", "GitHub token.")
+	eStringVar(&githubToken, "github-token", "GitHub token.")
 	eDurationVar(&timeout, "timeout", "HTTP timeout")
 	eDurationVar(&cacheDuration, "cache", "Duration of cache.")
 
