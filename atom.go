@@ -71,7 +71,7 @@ func atom(rels []Release) []byte {
 	}
 
 	// Write footer.
-	b.WriteString(rssFooter)
+	b.WriteString(atomFooter)
 
 	return b.Bytes()
 }
