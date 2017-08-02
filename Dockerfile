@@ -4,4 +4,4 @@ RUN go build -o /app github.com/Benzinga/npm-feed
 
 FROM scratch
 COPY --from=0 /app /app
-ENTRYPOINT /app
+ENTRYPOINT ["/app"]
