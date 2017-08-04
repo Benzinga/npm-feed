@@ -31,7 +31,7 @@ const (
 	<id>http://npmjs.org/</id>
 	<title>Node Package Feed</title>
 	<subtitle>Provides a feed of updates to your npm dependencies.</subtitle>
-	<link href="/feed.rss" rel="self"/>
+	<link href="/atom.xml" rel="self"/>
 	<generator url="https://github.com/Benzinga/npm-feed">npm-feed</generator>
 	<updated>%s</updated>
 `
