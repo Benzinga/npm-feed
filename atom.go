@@ -58,8 +58,8 @@ func atom(rels []Release) []byte {
 		entries[i].Title = rel.Name + " " + rel.Version
 		entries[i].Link.URL = getNodePackageURL(rel.Name)
 		entries[i].Link.Rel = "alternate"
-		entries[i].Updated = rel.Date.Format(rssTimeFormat)
-		entries[i].Published = rel.Date.Format(rssTimeFormat)
+		entries[i].Updated = rel.Date.Format(atomTimeFormat)
+		entries[i].Published = rel.Date.Format(atomTimeFormat)
 	}
 
 	// Marshal items.
