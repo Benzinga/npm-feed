@@ -2,8 +2,6 @@ package main
 
 import (
 	"bytes"
-	"crypto/sha1"
-	"encoding/hex"
 	"encoding/xml"
 	"fmt"
 	"time"
@@ -16,8 +14,8 @@ type (
 		ID      string   `xml:"id"`
 		Title   string   `xml:"title"`
 		Link    struct {
-			URL string `xml:",href"`
-			Rel string `xml:",rel"`
+			URL string `xml:"href,attr"`
+			Rel string `xml:"rel,attr"`
 		} `xml:"link"`
 		Updated   string `xml:"updated"`
 		Published string `xml:"published"`
@@ -25,14 +23,14 @@ type (
 )
 
 const (
-	atomTimeFormat = "2006-01-02T15:04:25.000000-07:00"
+	atomTimeFormat = time.RFC3339
 	atomHeader     = `<?xml version='1.0' encoding='UTF-8'?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 	<id>http://npmjs.org/</id>
 	<title>Node Package Feed</title>
 	<subtitle>Provides a feed of updates to your npm dependencies.</subtitle>
 	<link href="%s" rel="self"/>
-	<generator url="https://github.com/Benzinga/npm-feed">npm-feed</generator>
+	<generator uri="https://github.com/Benzinga/npm-feed">npm-feed</generator>
 	<updated>%s</updated>
 `
 	atomFooter = `</feed>
@@ -53,8 +51,7 @@ func atom(rels []Release, uri string) []byte {
 	// Format entries.
 	entries := make([]AtomEntry, len(rels))
 	for i, rel := range rels {
-		guid := sha1.Sum([]byte(fmt.Sprintf("%s#%s#%d", rel.Name, rel.Version, rel.Date.Unix())))
-		entries[i].ID = hex.EncodeToString(guid[:])
+		entries[i].ID = getNodePackageURL(rel.Name)
 		entries[i].Title = rel.Name + " " + rel.Version
 		entries[i].Link.URL = getNodePackageURL(rel.Name)
 		entries[i].Link.Rel = "alternate"
