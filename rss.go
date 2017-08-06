@@ -30,8 +30,8 @@ const (
 	<channel>
 		<title>Node Package Feed</title>
 		<description>Provides a feed of updates to your npm dependencies.</description>
-		<link>/rss.xml</link>
-		<atom:link href="/rss.xml" rel="self"/>
+		<link>%s</link>
+		<atom:link href="%s" rel="self"/>
 		<docs>http://www.rssboard.org/rss-specification</docs>
 		<generator>npm-feed</generator>
 		<language>en</language>
@@ -42,7 +42,7 @@ const (
 `
 )
 
-func rss(rels []Release) []byte {
+func rss(rels []Release, uri string) []byte {
 	// Prepare buffer.
 	b := bytes.Buffer{}
 	b.Grow(65535)
@@ -51,7 +51,7 @@ func rss(rels []Release) []byte {
 	updated := time.Now().Format(rssTimeFormat)
 
 	// Write header.
-	b.WriteString(fmt.Sprintf(rssHeader, updated))
+	b.WriteString(fmt.Sprintf(rssHeader, uri, uri, updated))
 
 	// Format items.
 	items := make([]RSSItem, len(rels))

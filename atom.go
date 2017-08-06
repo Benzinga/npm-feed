@@ -31,7 +31,7 @@ const (
 	<id>http://npmjs.org/</id>
 	<title>Node Package Feed</title>
 	<subtitle>Provides a feed of updates to your npm dependencies.</subtitle>
-	<link href="/atom.xml" rel="self"/>
+	<link href="%s" rel="self"/>
 	<generator url="https://github.com/Benzinga/npm-feed">npm-feed</generator>
 	<updated>%s</updated>
 `
@@ -39,7 +39,7 @@ const (
 `
 )
 
-func atom(rels []Release) []byte {
+func atom(rels []Release, uri string) []byte {
 	// Prepare buffer.
 	b := bytes.Buffer{}
 	b.Grow(65535)
@@ -48,7 +48,7 @@ func atom(rels []Release) []byte {
 	updated := time.Now().Format(atomTimeFormat)
 
 	// Write header.
-	b.WriteString(fmt.Sprintf(atomHeader, updated))
+	b.WriteString(fmt.Sprintf(atomHeader, uri, updated))
 
 	// Format entries.
 	entries := make([]AtomEntry, len(rels))

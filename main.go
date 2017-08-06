@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"sort"
 	"strings"
 	"time"
@@ -83,11 +84,25 @@ func serve(rw http.ResponseWriter, r *http.Request) {
 		}
 
 		org, project, feed := p[0], p[1], p[2]
-		rw.Write(getData(org, project, feed))
+		rw.Write(getData(org, project, feed, getAbsURL(r)))
 	}
 }
 
-func getData(org, project, feed string) []byte {
+func getAbsURL(r *http.Request) string {
+	uri := url.URL{}
+
+	uri.Scheme = "http"
+	if r.TLS != nil || strings.EqualFold(r.Header.Get("X-Forwarded-Proto"), "https") {
+		uri.Scheme = "https"
+	}
+
+	uri.Host = r.Host
+	uri.Path = r.URL.Path
+
+	return uri.String()
+}
+
+func getData(org, project, feed, uri string) []byte {
 	cacheKey := fmt.Sprintf("%s:%s:%s", org, project, feed)
 	data, found := cache.Get(cacheKey)
 
@@ -119,9 +134,9 @@ func getData(org, project, feed string) []byte {
 
 	switch feed {
 	case "rss.xml":
-		content = rss(releases)
+		content = rss(releases, uri)
 	case "atom.xml":
-		content = atom(releases)
+		content = atom(releases, uri)
 	}
 
 	cache.Set(cacheKey, content, cacheDuration)
