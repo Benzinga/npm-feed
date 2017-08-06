@@ -63,6 +63,8 @@ func main() {
 		Handler:      http.HandlerFunc(serve),
 	}
 
+	log.SetFlags(log.Lshortfile)
+	log.Println("Listening on", listenAddr)
 	log.Fatalln(server.ListenAndServe())
 }
 
