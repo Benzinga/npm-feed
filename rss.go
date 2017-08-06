@@ -12,7 +12,7 @@ import (
 type (
 	// RSSItem represents an <item> tag in RSS.
 	RSSItem struct {
-		XMLName struct{} `xml:"feed"`
+		XMLName struct{} `xml:"item"`
 		Title   string   `xml:"title"`
 		PubDate string   `xml:"pubDate"`
 		GUID    struct {
